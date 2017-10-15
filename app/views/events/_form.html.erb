@@ -1,39 +1,20 @@
-<% if(event.errors.any?) %>
-  <div id="error_explanation">
-  <h2><%= pluralize(event.errors.count, "error") %> </h2>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <%= simple_form_for(event) do |f| %>
+      <%= f.input :title %>
+      
+      <%= f.input :description %>
 
-  <ul>
-      <% event.errors.full_messages.each do |message| %>
-        <li><%= message %>
-      <% end %>
-  </ul>
-  </div>
-<% end %>
+      <%= f.input :start_date, as: :datetime, start_year: Date.today.year, ampm: true, order: [:day, :month, :year] %>
+      
+      <%= f.input :end_date, as: :datetime, start_year: Date.today.year, ampm: true, order: [:day, :month, :year] %>
 
-<%= form_for(event) do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+      <%= f.input :venue %>
+      
+      <%= f.input :location %>
+
+      <%= f.button :submit, class: "btn btn-primary" %>
+    <% end %>
+    <p><%= link_to "Back", events_path %></p>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :start_date %>
-    <%= f.datetime_select(:start_date, order: [:day, :month, :year], start_year: Date.current.year, ampm: true, prompt: true) %>
-  </div>
-  <div>
-    <%= f.label :end_date %>
-    <%= f.datetime_select(:end_date, order: [:day, :month, :year], start_year: Date.current.year, ampm: true, prompt: true) %>
-  </div>
-  <div>
-    <%= f.label :venue %>
-    <%= f.text_field :venue %>
-  </div>
-  <div>
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-  <%= f.submit %>
-<% end %>
+</div>
