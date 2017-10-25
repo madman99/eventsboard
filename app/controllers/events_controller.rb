@@ -4,12 +4,19 @@ before_action :authenticate_user!, except: [:index, :show]
 #before_action :authorize_owner!, only: [:edit, :update, :destroy] 
 
   def index
-    @events = Event.order(created_at: :desc)
+    if params[:query]
+      @events = Event.search(params[:query])
+    else
+      @events = Event.order(created_at: :desc)
+    end
+    @categories = Category.order(:name)
     authorize @events, :index?
   end
 
   def show
     authorize @event, :show?
+    @comment = Comment.new
+    @comment.event_id = @event.id
   end
 
   def new
@@ -55,7 +62,7 @@ before_action :authenticate_user!, except: [:index, :show]
   private 
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
 
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "The page you requested does not exist"
@@ -63,7 +70,7 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location)
+    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location, :image, :category_id)
   end
 
   #def authorize_owner!

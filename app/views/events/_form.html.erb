@@ -13,6 +13,10 @@
       
       <%= f.input :location %>
 
+      <%= f.input :category_id, collection: Category.all, label: "Select Categories", prompt: true %>
+
+      <%= f.input :image, as: :file, label: "Upload an Image" %>
+
       <%= f.button :submit, class: "btn btn-primary" %>
     <% end %>
     <p><%= link_to "Back", events_path %></p>
