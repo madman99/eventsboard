@@ -70,7 +70,7 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location, :image, :category_id, :seats)
+    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location, :image, :category_id, :seats, :tag_list)
   end
 
   #def authorize_owner!

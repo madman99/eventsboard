@@ -17,6 +17,8 @@
 
       <%= f.input :seats, label: "Capacity", hint: "The number of Attendees to the event" %>
 
+      <%= f.input :tag_list, label: "Tags", hint: "please enter comma seperated words only" %>
+
       <%= f.input :image, as: :file, label: "Upload an Image" %>
 
       <%= f.button :submit, class: "btn btn-primary" %>
