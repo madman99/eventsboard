@@ -7,7 +7,7 @@ before_action :authenticate_user!, except: [:index, :show]
     if params[:query]
       @events = Event.search(params[:query])
     else
-      @events = Event.order(created_at: :desc)
+      @events = Event.order(created_at: :desc).paginate(page: params[:page], per_page: 4)
     end
     @categories = Category.order(:name)
     authorize @events, :index?
@@ -70,7 +70,7 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location, :image, :category_id)
+    params.require(:event).permit(:title, :description, :start_date, :end_date, :venue, :location, :image, :category_id, :seats)
   end
 
   #def authorize_owner!
