@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :categories, only: [:show]
   resources :tags, only: [:show]
-  root 'events#index'
+  root 'home#index'
   
   resources :events do
     resources :likes, only: [:create]
